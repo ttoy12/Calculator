@@ -18,3 +18,10 @@ body {
     grid-template-columns: repeat(4, 100px);
 }
 
+.calculator-grid > button {
+    cursor: pointer;
+}
+
+.calculator-grid > button:hover {
+    background: red;
+}
