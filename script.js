@@ -90,6 +90,7 @@ const allClearButton = document.querySelector('[data-all-clear]')
 const deleteButton = document.querySelector('[data-delete]')
 const previousOperandTextElement = document.querySelector('[data-previous-operand]')
 const currentOperandTextElement = document.querySelector('[data-current-operand]')
+const keyBoard = document.querySelector('[data-keyboard]') // implementing keyboard presses
 
 const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement)
 
@@ -120,4 +121,88 @@ allClearButton.addEventListener('click', button => {
 deleteButton.addEventListener('click', button => {
     calculator.delete()
     calculator.updateDisplay()
+})
+
+keyBoard.addEventListener('keydown', e => {
+    //console.log(e) // to see info
+    if (e.keyCode >= 48 && e.keyCode <= 57 || e.key === ".") // numbers 0-9
+    { 
+        calculator.appendNumber(e.key)
+        calculator.updateDisplay()
+    } else {
+        switch (e.key) {
+            case "+":
+                calculator.chooseOperand(e.key)
+                calculator.updateDisplay()
+                break;
+            case "-":
+                calculator.chooseOperand(e.key)
+                calculator.updateDisplay()
+                break;
+            case "*":
+                calculator.chooseOperand(e.key)
+                calculator.updateDisplay()
+                break
+            case "/":
+                calculator.chooseOperand('÷')
+                calculator.updateDisplay()
+                break
+            case "=": // not quite sure why but "Enter is not working...it makes all the numbers disappear or appends the last number seen"
+                calculator.compute()
+                calculator.updateDisplay()
+                break;
+            case "c":
+                calculator.clear()
+                calculator.updateDisplay()
+                break
+            case "Backspace":
+                calculator.delete()
+                calculator.updateDisplay()
+                break
+            default:
+                return
+    }
+}
+
+    // // keyCode table: https://blogs.longwin.com.tw/lifetype/key_codes.html
+    // // https://css-tricks.com/snippets/javascript/javascript-keycodes/
+    // // JUST REALIZED DIDN'T NEED TO BE USING KEYCODES COULD JUST USE THE KEY TO CHECK
+    // if (e.keyCode >= 48 && e.keyCode <= 57 || e.key === 190) { 
+    //     calculator.appendNumber(e.key)
+    //     calculator.updateDisplay()
+    // }
+    // else if (e.keyCode === 187 && e.shiftKey === true) // addition
+    // {
+    //     calculator.chooseOperand(e.key)
+    //     calculator.updateDisplay()
+    // }
+    // else if (e.key === "Enter") // equals
+    // {
+    //     calculator.compute()
+    //     calculator.updateDisplay()
+    // }
+    // else if (e.keyCode === 189) // subract
+    // {
+    //     calculator.chooseOperand(e.key)
+    //     calculator.updateDisplay()
+    // }
+    // else if (e.keyCode === 191) // divide
+    // {
+    //     calculator.chooseOperand(e.key)
+    //     calculator.updateDisplay()
+    // }
+    // else if (e.keyCode === 56 && e.shiftKey ===  true) // multiplication 
+    // {
+    //     calculator.chooseOperand(e.key)
+    //     calculator.updateDisplay()
+    // }
+    // else if (e.keyCode === 8) // delete 
+    // {
+    //     calculator.delete()
+    //     calculator.updateDisplay()
+    // }
+    // else {
+    //     return
+    // }
+
 })
